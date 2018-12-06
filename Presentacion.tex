@@ -79,15 +79,51 @@
  \end{frame}
 }
 
+\usepackage{setspace}
+\usepackage{color}
+\usepackage{listings}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\large,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  %escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  %extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  %frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=[ANSI]C,					% the language of the code
+  %otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{green},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+  morecomment=[s]{/*}{*/}%
+}
+
 \begin{document}
 
+%==================================================================================
+%  PORTADA
+%==================================================================================
 \begin{frame}[plain,noframenumbering]
 	\begin{center}
 	\vspace{5px}	
-	\Large\textbf{Maestría en Sistemas Embebidos - FIUBA}\\
-	\vspace{10px}
-	\large\textbf{Presentación de Trabajo Final}\\
+	\Large\textbf{Maestría en Sistemas Embebidos}\\
 	\vspace{5px}
+	\large\textbf{Universidad de Buenos Aires}\\
+	\vspace{10px}
   \begin{beamercolorbox}[center,sep=1.125ex,dp=1.125ex,ht=18ex, wd=\paperwidth]{bgcolor}
 	  \huge\textbf{Sistema de control para estación autónoma marítima de monitoreo de ruido ambiente}\\
     	\vspace{5px}
@@ -95,6 +131,7 @@
   \end{beamercolorbox}
 %	\vspace{10px}
 	\vfill
+	\vspace{15px}
 	\begin{minipage}[t]{0.47\textwidth}
 		\begin{flushleft} \large
 			\textbf{Director:}\\
@@ -118,13 +155,18 @@
 	\end{center}
 \end{frame}
 
-% TOC
+%==================================================================================
+%  TOC
+%==================================================================================
 \begin{frame}{\textbf{\LARGE{Agenda}}}
 \fontsize{18pt}{18}\selectfont
 \tableofcontents
 \end{frame}
-%%%%%%%%%%%%%%%%
 
+
+%==================================================================================
+%  MOTIVACIÓN
+%==================================================================================
 \section{Motivación}
 
 \begin{frame}{\textbf{\LARGE{Motivación}}}
@@ -148,6 +190,24 @@
 		\includegraphics[width=.9\textwidth]{./imagenes/antecedentes.jpg}
 \end{frame}
 
+\begin{frame}{\textbf{\LARGE{Objetivo}}}
+  \fontsize{18pt}{18}\selectfont
+	\vspace{-.7cm}
+	\centering
+	\begin{itemize}
+		\item ¿Por qué acústica submarina?
+		\vspace{15px}
+		\item ¿Qué es el nivel de ruido?
+		\vspace{15px}
+		\item ¿Por qué interesa medirlo?
+		\vspace{15px}	
+		\item ¿Qué disciplinas lo necesitan?
+	\end{itemize}
+\end{frame}
+
+%==================================================================================
+%  PLANIFICACIÓN
+%==================================================================================
 \section{Planificación}
 
 \begin{frame}{\textbf{\LARGE{Diagrama en bloques}}}
@@ -170,14 +230,31 @@
 	\end{figure}	
 \end{frame}
 
-
+%==================================================================================
+%   METODOLOGÍA
+%==================================================================================
 \section{Metodología}
 
-\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
-	\vspace{-.7cm}
-	\begin{figure}[H]
-		\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}
-	\end{figure}	
+\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}{Successfull git branch model}
+	\begin{columns}
+	  \column{.45\textwidth}
+	  	\vspace{-1.3cm}
+	  \begin{figure}[H]
+    		\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}
+	  \end{figure}	
+	\hfill
+	\column{.45\textwidth}
+	Ramas creadas
+	  \begin{itemize}[]
+		  \item Master
+		  \item Develop
+		  \item Adquisición
+	  	  \item Almacenamiento
+	  	  \item Interfaz de usuario
+	 	  \item Control
+	 	  \item Ceedling
+	  \end{itemize}
+	\end{columns}
 \end{frame}
 
 
@@ -188,6 +265,10 @@
 	\end{figure}	
 \end{frame}
 
+
+%==================================================================================
+%  IMPLEMENTACIÓN
+%==================================================================================
 \section{Implementación}
 
 \begin{frame}{\textbf{\LARGE{Modelo de capas}}}
@@ -197,13 +278,38 @@
 	\end{figure}	
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
-	\vspace{-.7cm}
+\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo genérico}
+	\vspace{-1.1cm}
 	\begin{figure}[H]
 		\includegraphics[height=.8\textheight]{./imagenes/MEF_generica.pdf}
 	\end{figure}	
 \end{frame}
 
+\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo genérico}
+	\vspace{-.7cm}
+	\begin{columns}
+	  \column{.45\textwidth}
+	  algo
+	  \column{.45\textwidth}
+	  otra
+	\end{columns}
+\end{frame}
+
+
+
+
+\begin{frame}{\textbf{\LARGE{Interfaz de usuario}}}{}
+	\vspace{-.7cm}
+	\centering
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{./imagenes/interfaz_detalles.pdf}
+	\end{figure}	
+\end{frame}
+
+
+%==================================================================================
+%  TESTING
+%==================================================================================
 \section{Testing}
 
 \begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
@@ -213,6 +319,9 @@
 	\end{figure}	
 \end{frame}
 
+%==================================================================================
+%  DEMOSTRACIÓN
+%==================================================================================
 \section{Demo}
 
 \begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
@@ -222,6 +331,9 @@
 	\end{figure}	
 \end{frame}
 
+%==================================================================================
+%  CONCLUSIONES
+%==================================================================================
 \section{Conclusiones}
 
 
@@ -233,6 +345,82 @@
 
 \begin{frame}{\textbf{\LARGE{Tecnologías utilizadas}}}
 \fontsize{18pt}{18}\selectfont
+\end{frame}
+
+
+%==================================================================================
+%  PREGUNTAS
+%==================================================================================
+\begin{frame}[plain,c]
+%\frametitle{A first slide}
+\begin{center}
+\usebeamerfont*{frametitle} %\usebeamercolor[fg]{frametitle}
+\Huge ¿Preguntas?
+\end{center}
+
+\end{frame}
+
+
+%==================================================================================
+%  APÉNDICE
+%==================================================================================
+\begin{frame}[fragile]{\textbf{\LARGE{Protothreads}}}{Multitasking cooperativo}
+	\vspace{-.7cm}
+	\begin{verbatim}
+		struct pt { unsigned short lc; };
+		
+		#define PT_THREAD(name_args)  char name_args
+
+		#define PT_BEGIN(pt)          switch(pt->lc) { case 0:
+
+		#define PT_WAIT_UNTIL(pt, c)  pt->lc = __LINE__; \
+		                              case __LINE__: \
+		                              if(!(c)) return 0
+
+		#define PT_END(pt)            } pt->lc = 0; return 2
+
+		#define PT_INIT(pt)           pt->lc = 0
+	\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{\textbf{\LARGE{Protothreads}}}{Multitasking cooperativo}
+	\vspace{-.6cm}
+  \begin{minipage}{.5\textwidth}
+    \begin{lstlisting}[frame=tlrb,basicstyle=\footnotesize,label={lst:proto1}]{Protothreads}
+static
+PT_THREAD(example(struct pt *pt))
+{
+  PT_BEGIN(pt);
+  
+  while(1) {
+    PT_WAIT_UNTIL(pt,
+      counter == 1000);
+    printf("Threshold reached\n");
+    counter = 0;
+  }
+  
+  PT_END(pt);
+}
+    \end{lstlisting}
+  \end{minipage}\hfill
+  \begin{minipage}{.5\textwidth}
+    \begin{lstlisting}[frame=tlrb,basicstyle=\footnotesize,label={lst:proto2}]{Traducción}
+static
+char example(struct pt *pt)
+{
+  
+  switch(pt->lc) { case 0:
+ 
+  while(1) {
+    pt->lc = 12; case 12:
+    if(!(counter == 1000)) return 0;
+    printf("Threshold reached\n");
+    counter = 0;
+  }
+  } pt->lc = 0; return 2;
+}
+    \end{lstlisting}
+  \end{minipage}
 \end{frame}
 
 \end{document}
