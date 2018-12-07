@@ -80,7 +80,7 @@
 }
 
 \usepackage{setspace}
-\usepackage{color}
+%\usepackage{color}
 \usepackage{listings}
 
 \lstset{ %
@@ -190,30 +190,46 @@
 		\includegraphics[width=.9\textwidth]{./imagenes/antecedentes.jpg}
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Objetivo}}}
+\begin{frame}[c]{\textbf{\LARGE{Objetivo}}}{General}
+  \fontsize{18pt}{18}\selectfont
+	\begin{itemize}
+		\item Prototipo de estación autónoma.
+		\vspace{15px}
+		\item Medición de señales acústicas.
+		\vspace{15px}
+		\item Medición de parámetros ambientales.
+		\vspace{15px}	
+		\item Almacenamiento de la información.
+		\vspace{15px}	
+		\item Transmisión en tiempo real.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Objetivo}}}{Particular}
   \fontsize{18pt}{18}\selectfont
 	\vspace{-.7cm}
 	\centering
 	\begin{itemize}
-		\item ¿Por qué acústica submarina?
+		\item Desarrollar un firmware de control para la CIAA-NXP.
 		\vspace{15px}
-		\item ¿Qué es el nivel de ruido?
+		\item Arquitectura multicore modular y flexible.
 		\vspace{15px}
-		\item ¿Por qué interesa medirlo?
+		\item Mecanismos de comunicación y sincronización.
 		\vspace{15px}	
-		\item ¿Qué disciplinas lo necesitan?
+		\item Interfaz de usuario
+		%\vspace{15px}	
+		%\item 
 	\end{itemize}
 \end{frame}
-
 %==================================================================================
 %  PLANIFICACIÓN
 %==================================================================================
 \section{Planificación}
 
 \begin{frame}{\textbf{\LARGE{Diagrama en bloques}}}
-	\vspace{-.6cm}
-		\includegraphics[width=\textwidth]<1>{./imagenes/Diagrama_en_Bloques.pdf}
-		\includegraphics[width=\textwidth]<2>{./imagenes/Diagrama_en_Bloques_recorte.pdf}
+%	\vspace{-.6cm}
+	\includegraphics<1>[width=\textwidth]{./imagenes/Diagrama_en_Bloques.pdf}
+	\includegraphics<2>[width=\textwidth]{./imagenes/Diagrama_en_Bloques_recorte.pdf}
 \end{frame}
 
 \begin{frame}{\textbf{\LARGE{Planificación en etapas}}}
@@ -236,15 +252,18 @@
 \section{Metodología}
 
 \begin{frame}{\textbf{\LARGE{Modelo de ramas}}}{Successfull git branch model}
+	\fontsize{16pt}{16}\selectfont
+	\vspace{-.9cm}
 	\begin{columns}
-	  \column{.45\textwidth}
-	  	\vspace{-1.3cm}
+	  \column{.5\textwidth}
+%	  	\vspace{-.9cm}
 	  \begin{figure}[H]
-    		\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}
+    		\includegraphics<1->[height=.8\textheight]{./imagenes/Git-branching-model.pdf}
 	  \end{figure}	
 	\hfill
-	\column{.45\textwidth}
-	Ramas creadas
+	\column{.5\textwidth} 	
+	Ramas creadas:
+	\vspace{5px}
 	  \begin{itemize}[]
 		  \item Master
 		  \item Develop
@@ -265,7 +284,22 @@
 	\end{figure}	
 \end{frame}
 
-
+\begin{frame}{\textbf{\LARGE{Protothreads}}}{Multitasking cooperativo}
+	\vspace{-.7cm}
+	\fontsize{18pt}{18}\selectfont
+	\vspace{-.7cm}
+	\centering
+	\begin{itemize}
+		\item Abstracción computacional para multitasking cooperativo.
+		\vspace{15px}
+		\item Bloqueo de tareas sin cambio de contexto.
+		\vspace{15px}
+		\item 2 bytes de overhead por thread
+		\vspace{15px}	
+		\item Conjunto de macros o co-rutinas
+	%	\item 
+	\end{itemize}
+\end{frame}
 %==================================================================================
 %  IMPLEMENTACIÓN
 %==================================================================================
