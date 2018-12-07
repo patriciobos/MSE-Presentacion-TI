@@ -1,4 +1,4 @@
-\documentclass[11pt]{beamer}
+\documentclass[11pt, xcolor={table,xcdraw}]{beamer}
 \usetheme[
 %%% options passed to the outer theme
     progressstyle=fixedCircCnt,   %either fixedCircCnt, movCircCnt, or corner
@@ -20,6 +20,10 @@
 % Change the normal text color background:
 %\setbeamercolor{normal text}{fg=black,bg=gray!10}
 % ... and you can of course change a lot more - see the beamer user manual.
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
 
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
@@ -80,7 +84,7 @@
 }
 
 \usepackage{setspace}
-%\usepackage{color}
+\usepackage{color}
 \usepackage{listings}
 
 \lstset{ %
@@ -111,6 +115,12 @@
   title=\lstname,                   % show the filename of files included with \lstinputlisting; also try caption instead of title
   morecomment=[s]{/*}{*/}%
 }
+
+\usepackage{booktabs}
+%\usepackage[table,xcdraw]{xcolor}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\usepackage{multirow}
 
 \begin{document}
 
@@ -214,7 +224,7 @@
 		\vspace{15px}
 		\item Arquitectura multicore modular y flexible.
 		\vspace{15px}
-		\item Mecanismos de comunicación y sincronización.
+		\item Mecanismos de comunicación, sincronización y concurrencia.
 		\vspace{15px}	
 		\item Interfaz de usuario
 		%\vspace{15px}	
@@ -251,7 +261,7 @@
 %==================================================================================
 \section{Metodología}
 
-\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}{Successfull git branch model}
+\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}{A successfull git branching model}
 	\fontsize{16pt}{16}\selectfont
 	\vspace{-.9cm}
 	\begin{columns}
@@ -271,7 +281,7 @@
 	  	  \item Almacenamiento
 	  	  \item Interfaz de usuario
 	 	  \item Control
-	 	  \item Ceedling
+	 	  \item Testing
 	  \end{itemize}
 	\end{columns}
 \end{frame}
@@ -284,19 +294,21 @@
 	\end{figure}	
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Protothreads}}}{Multitasking cooperativo}
-	\vspace{-.7cm}
+\begin{frame}{\textbf{\LARGE{Protothreads}}}{Adam Dunkel}
+	\vspace{-.3cm}
 	\fontsize{18pt}{18}\selectfont
 	\vspace{-.7cm}
 	\centering
 	\begin{itemize}
-		\item Abstracción computacional para multitasking cooperativo.
-		\vspace{15px}
-		\item Bloqueo de tareas sin cambio de contexto.
-		\vspace{15px}
-		\item 2 bytes de overhead por thread
+		\item Multitasking cooperativo.
 		\vspace{15px}	
-		\item Conjunto de macros o co-rutinas
+		\item Conjunto de macros o co-rutinas.
+		\vspace{15px}
+		\item Bloqueo sin cambio de contexto.
+		\vspace{15px}
+		\item Control de flujo más lineal
+		\vspace{15px}
+		\item 2 bytes de overhead por thread		
 	%	\item 
 	\end{itemize}
 \end{frame}
@@ -312,6 +324,43 @@
 	\end{figure}	
 \end{frame}
 
+\begin{frame}[fragile]{\textbf{\LARGE{Arquitectura de módulos}}}{}
+	\hspace{-1cm}
+  \begin{minipage}[t]{.55\textwidth}
+		\begin{lstlisting}[basicstyle=\footnotesize]
+		typedef struct {
+		
+		   cpuID_t cpuID;
+		   
+		   moduleID_t moduleID;
+		   
+		   funcPtr_t eventHandler;
+		   
+		   tick_t period;
+		   
+		   moduleStatus_t status;
+		   
+		} module_t;
+		\end{lstlisting}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[basicstyle=\footnotesize]
+			typedef struct {
+			
+			struct {
+				cpuID_t cpuID;
+		    moduleID_t moduleID;
+			} id;
+
+			signal_t signal;
+
+			(void *) data;
+
+		} ipcex_msg_t;
+		\end{lstlisting} 
+  \end{minipage}
+\end{frame}
+
 \begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo genérico}
 	\vspace{-1.1cm}
 	\begin{figure}[H]
@@ -319,24 +368,55 @@
 	\end{figure}	
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo genérico}
-	\vspace{-.7cm}
-	\begin{columns}
-	  \column{.45\textwidth}
-	  algo
-	  \column{.45\textwidth}
-	  otra
-	\end{columns}
+
+
+
+
+\begin{frame}[fragile]{\textbf{\LARGE{Arquitectura de Firmware}}}{Disparada por eventos}
+	%\vspace{-.7cm}
+	%\begin{columns}[t]
+	 % \column{.7\textwidth}
+	  \begin{lstlisting}[basicstyle=\footnotesize]
+int main(void)
+{
+   bool_t goToSleep = FALSE;
+
+   prvSetupHardware();
+   FR_register_all_modules();
+   FR_broadcast_signal(sig_init);
+
+   while(TRUE) {  // the main loop
+
+      goToSleep = FR_dispatch_tasks();
+
+      if (goToSleep == TRUE)
+         __WFI();
+   }
+   return 0;
+}
+\end{lstlisting}
+	  %\column{.45\textwidth}
+	 % otra
+	%\end{columns}
 \end{frame}
 
 
 
 
-\begin{frame}{\textbf{\LARGE{Interfaz de usuario}}}{}
+\begin{frame}{\textbf{\LARGE{Interfaz de usuario}}}{Pantalla principal}
 	\vspace{-.7cm}
 	\centering
 	\begin{figure}[H]
 		\includegraphics[width=\textwidth]{./imagenes/interfaz_detalles.pdf}
+	\end{figure}	
+\end{frame}
+
+
+\begin{frame}{\textbf{\LARGE{Interfaz de usuario}}}{Modo configuración}
+	\vspace{-.7cm}
+	\centering
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{./imagenes/interfaz_config_detalle.png}
 	\end{figure}	
 \end{frame}
 
@@ -346,39 +426,159 @@
 %==================================================================================
 \section{Testing}
 
-\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
+\begin{frame}{\textbf{\LARGE{Testing}}}{Niveles de abstracción}
+  \fontsize{18pt}{18}\selectfont
+%	\vspace{-.7cm}
+	\centering
+	\begin{itemize}
+		\item Pruebas unitarias.
+		\vspace{20px}
+		\item Pruebas funcionales.
+		\vspace{20px}
+		\item Pruebas de sistema.
+%		\vspace{15px}	
+%		\item Interfaz de usuario
+		%\vspace{15px}	
+		%\item 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas unitarias}
 	\vspace{-.7cm}
 	\begin{figure}[H]
-		{\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}}
+		\includegraphics<1>[width=1\textwidth]{./imagenes/TestUnitario.png}
+		%\includegraphics<1>[height=1\textheight]{./imagenes/TestUnitario.png}
 	\end{figure}	
 \end{frame}
+
+\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas de sistema: plantilla}
+	\vspace{-.7cm}
+	\begin{figure}[H]
+		\includegraphics[width=1\textwidth]{./imagenes/UseCaseTemplate.pdf}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas de sistema: casos de uso}
+	\vspace{-.75cm}
+\begin{columns}
+  \column{.53\paperwidth}
+  \hspace{.5cm}
+	\begin{figure}[H]
+	  \includegraphics[height=.8\textheight]{./imagenes/UseCase.png}
+	\end{figure}	
+	\hfill
+	\column{.47\paperwidth} 	
+	Casos de uso:
+	\vspace{5px}
+	  \begin{itemize}[]
+		  \item UC01: Adquisición autónoma
+		  \item UC02: Cambio de período
+		  \item UC03: Cambio de perfil
+		\end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC01}
+	\vspace{-.7cm}
+	\begin{figure}[H]
+	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle1.png}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC02}
+	\vspace{-.7cm}
+	\begin{figure}[H]
+	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle2.png}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC03}
+	\vspace{-.7cm}
+	\begin{figure}[H]
+	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle3.png}
+	\end{figure}	
+\end{frame}
+
+
 
 %==================================================================================
 %  DEMOSTRACIÓN
 %==================================================================================
 \section{Demo}
 
-\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
-	\vspace{-.7cm}
-	\begin{figure}[H]
-		{\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}}
-	\end{figure}	
-\end{frame}
+%\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
+%	\vspace{-.7cm}
+%	\begin{figure}[H]
+%		{\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}}
+%	\end{figure}	
+%\end{frame}
 
 %==================================================================================
 %  CONCLUSIONES
 %==================================================================================
 \section{Conclusiones}
 
-
-
-\begin{frame}{\textbf{\LARGE{¿Sobre qué hace falta alertar?}}}
+\begin{frame}{\textbf{\LARGE{Resultados obtenidos}}}
 \fontsize{18pt}{18}\selectfont
-
+	\vspace{-.7cm}
+	\centering
+	\begin{itemize}
+  \item Metodología de trabajo.
+	\vspace{15px}
+	\item Arquitectura modular multicore.
+	\vspace{15px}
+	\item Mecanismos de control y despacho de tareas y eventos.
+	\vspace{15px}
+	\item 4 módulos funcionales.
+	\vspace{15px}	
+	\item Documentación completa.
+%	\item 
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Tecnologías utilizadas}}}
+\begin{frame}{\textbf{\LARGE{Cumplimiento}}}{Requerimientos funcionales del sistema}
+%\fontsize{18pt}{18}\selectfont
+\vspace{-.8cm}
+\begin{table}[!htpb]
+\resizebox{\textwidth}{!}{%
+\centering
+\begin{tabular}{@{}lc@{}}
+\rowcolor[HTML]{9AFF99} 
+\begin{tabular}[c]{@{}l@{}}2.1 El sistema debe adquirir datos de un array de sensores de \\ temperatura a intervalos regulares con un período de adquisición \\ seleccionable.\end{tabular} &  \checkmark \\
+ &  \\
+ \rowcolor[HTML]{FFCCC9} 
+\begin{tabular}[c]{@{}l@{}}2.2 El sistema debe adquirir datos de un anemómetro a intervalos \\ regulares con un período de adquisición seleccionable.\end{tabular} &  X \\
+ &  \\
+\rowcolor[HTML]{9AFF99} 
+\begin{tabular}[c]{@{}l@{}}2.3 El sistema debe almacenar los datos de temperatura y velocidad\\ de viento adquiridas junto con una marca de tiempo identificatoria \\ en un medio físico no volátil.\end{tabular} & \checkmark \\
+ &  \\
+\rowcolor[HTML]{9AFF99} 
+\begin{tabular}[c]{@{}l@{}}2.4 El sistema debe poder operar con dos perfiles de consumo de \\ energía máximo desempeño y mínimo consumo de energía.\end{tabular} & \checkmark \\
+ &  \\
+ \rowcolor[HTML]{9AFF99} 
+\begin{tabular}[c]{@{}l@{}}2.5 El sistema debe contar con una interfaz serie cableada que \\ permita realizar operaciones de configuración y mantenimiento.\end{tabular} & \checkmark \\
+ &  \\
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Trabajo futuro}}}
 \fontsize{18pt}{18}\selectfont
+	\vspace{-.7cm}
+	\centering
+	\begin{itemize}
+	\item Completar requerimientos y funcionalidades.
+	\vspace{15px}
+	\item Analizar distintas configuraciones.
+	\vspace{15px}
+	\item Servidor de integración continua.
+	\vspace{15px}	
+	\item Diseñar hardware \textit{ad-hoc}.
+	\vspace{15px}	
+	\item Completar objetivos generales.
+%	\item 
+	\end{itemize}
 \end{frame}
 
 
@@ -455,6 +655,29 @@ char example(struct pt *pt)
 }
     \end{lstlisting}
   \end{minipage}
+\end{frame}
+
+
+
+\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo adquisición}
+	\vspace{-1.1cm}
+	\begin{figure}[H]
+		\includegraphics[height=.8\textheight]{./imagenes/MEF_adquisicion.pdf}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo HMI}
+	\vspace{-1.1cm}
+	\begin{figure}[H]
+		\includegraphics[height=.8\textheight]{./imagenes/MEF_HMI_2.pdf}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}{\textbf{\LARGE{Máquina de Estados Finitos}}}{Módulo almacenamiento}
+	\vspace{-1.1cm}
+	\begin{figure}[H]
+		\includegraphics[height=.8\textheight]{./imagenes/MEF_sdCard_2.pdf}
+	\end{figure}	
 \end{frame}
 
 \end{document}
