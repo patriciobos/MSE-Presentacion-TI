@@ -145,7 +145,7 @@
 	\begin{minipage}[t]{0.47\textwidth}
 		\begin{flushleft} \large
 			\textbf{Director:}\\
-			Dr. Ing Ariel Lutenberg
+			Dr. Ing. Ariel Lutenberg
 		\end{flushleft}
 	\end{minipage}
 	\hfill
@@ -154,7 +154,7 @@
 			\textbf{Jurados:} \\
 			Dr. Ing. Pablo Gómez \\
 			Ing. Juan Manuel Cruz\\
-			Mg. Lic Igor Prario\\
+			Mg. Lic. Igor Prario\\
 		\end{flushright}
 	\end{minipage}
 %	\vfill
@@ -186,7 +186,7 @@
 	\begin{itemize}
 	\item ¿Por qué acústica submarina?
 	\vspace{15px}
-	\item ¿Qué es el nivel de ruido?
+	\item ¿Qué es el ruido ambiente?
 	\vspace{15px}
 	\item ¿Por qué interesa medirlo?
 	\vspace{15px}	
@@ -195,19 +195,19 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Antecendentes}}}
+\begin{frame}{\textbf{\LARGE{Antecedentes}}}
 	\vspace{-.6cm}
 		\includegraphics[width=.9\textwidth]{./imagenes/antecedentes.jpg}
 \end{frame}
 
-\begin{frame}[c]{\textbf{\LARGE{Objetivo}}}{General}
+\begin{frame}[c]{\textbf{\LARGE{Objetivos generales}}}{}
   \fontsize{18pt}{18}\selectfont
 	\begin{itemize}
 		\item Prototipo de estación autónoma.
 		\vspace{15px}
 		\item Medición de señales acústicas.
 		\vspace{15px}
-		\item Medición de parámetros ambientales.
+		\item Medición de datos ambientales.
 		\vspace{15px}	
 		\item Almacenamiento de la información.
 		\vspace{15px}	
@@ -215,7 +215,7 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Objetivo}}}{Particular}
+\begin{frame}{\textbf{\LARGE{Objetivos particulares}}}{}
   \fontsize{18pt}{18}\selectfont
 	\vspace{-.7cm}
 	\centering
@@ -226,7 +226,7 @@
 		\vspace{15px}
 		\item Mecanismos de comunicación, sincronización y concurrencia.
 		\vspace{15px}	
-		\item Interfaz de usuario
+		\item Interfaz de usuario.
 		%\vspace{15px}	
 		%\item 
 	\end{itemize}
@@ -308,7 +308,7 @@
 		\vspace{15px}
 		\item Control de flujo más lineal
 		\vspace{15px}
-		\item 2 bytes de overhead por thread		
+		\item Dos bytes de overhead por thread		
 	%	\item 
 	\end{itemize}
 \end{frame}
@@ -424,9 +424,9 @@ int main(void)
 %==================================================================================
 %  TESTING
 %==================================================================================
-\section{Testing}
+\section{Ensayos}
 
-\begin{frame}{\textbf{\LARGE{Testing}}}{Niveles de abstracción}
+\begin{frame}{\textbf{\LARGE{Ensayos}}}{Niveles de abstracción}
   \fontsize{18pt}{18}\selectfont
 %	\vspace{-.7cm}
 	\centering
@@ -443,7 +443,7 @@ int main(void)
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas unitarias}
+\begin{frame}{\textbf{\LARGE{Ensayos}}}{Pruebas unitarias}
 	\vspace{-.7cm}
 	\begin{figure}[H]
 		\includegraphics<1>[width=1\textwidth]{./imagenes/TestUnitario.png}
@@ -451,14 +451,14 @@ int main(void)
 	\end{figure}	
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas de sistema: plantilla}
-	\vspace{-.7cm}
+\begin{frame}{\textbf{\LARGE{Ensayos}}}{Pruebas de sistema: plantilla}
+	\vspace{-.55cm}
 	\begin{figure}[H]
 		\includegraphics[width=1\textwidth]{./imagenes/UseCaseTemplate.pdf}
 	\end{figure}	
 \end{frame}
 
-\begin{frame}{\textbf{\LARGE{Testing}}}{Pruebas de sistema: casos de uso}
+\begin{frame}{\textbf{\LARGE{Ensayos}}}{Pruebas de sistema: casos de uso}
 	\vspace{-.75cm}
 \begin{columns}
   \column{.53\paperwidth}
@@ -478,21 +478,21 @@ int main(void)
 	\end{columns}
 \end{frame}
 
-\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC01}
+\begin{frame}[t]{\textbf{\LARGE{Ensayos}}}{Caso de uso UC01}
 	\vspace{-.7cm}
 	\begin{figure}[H]
 	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle1.png}
 	\end{figure}	
 \end{frame}
 
-\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC02}
+\begin{frame}[t]{\textbf{\LARGE{Ensayos}}}{Caso de uso UC02}
 	\vspace{-.7cm}
 	\begin{figure}[H]
 	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle2.png}
 	\end{figure}	
 \end{frame}
 
-\begin{frame}[t]{\textbf{\LARGE{Testing}}}{Caso de uso UC03}
+\begin{frame}[t]{\textbf{\LARGE{Ensayos}}}{Caso de uso UC03}
 	\vspace{-.7cm}
 	\begin{figure}[H]
 	  \includegraphics[width=.77\textwidth]{./imagenes/UseCase_detalle3.png}
@@ -506,12 +506,12 @@ int main(void)
 %==================================================================================
 \section{Demo}
 
-%\begin{frame}{\textbf{\LARGE{Modelo de ramas}}}
-%	\vspace{-.7cm}
-%	\begin{figure}[H]
-%		{\includegraphics[height=.8\textheight]{./imagenes/Git-branching-model.pdf}}
-%	\end{figure}	
-%\end{frame}
+\begin{frame}{\textbf{\LARGE{Banco de medición}}}
+	\vspace{-.7cm}
+	\begin{figure}[H]
+		\includegraphics[width=\textwidth]{./imagenes/banco.jpg}
+	\end{figure}	
+\end{frame}
 
 %==================================================================================
 %  CONCLUSIONES
@@ -529,7 +529,7 @@ int main(void)
 	\vspace{15px}
 	\item Mecanismos de control y despacho de tareas y eventos.
 	\vspace{15px}
-	\item 4 módulos funcionales.
+	\item Cuatro módulos funcionales.
 	\vspace{15px}	
 	\item Documentación completa.
 %	\item 
@@ -574,7 +574,7 @@ int main(void)
 	\vspace{15px}
 	\item Servidor de integración continua.
 	\vspace{15px}	
-	\item Diseñar hardware \textit{ad-hoc}.
+	\item Diseñar PCB de interconexión.
 	\vspace{15px}	
 	\item Completar objetivos generales.
 %	\item 
